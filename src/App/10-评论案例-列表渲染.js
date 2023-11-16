@@ -1,6 +1,8 @@
-// 10-评论案例-列表渲染
+// 10-评论案例
+// 10.1、列表渲染
 import '../style/10-app.scss';
 import avatar from '../images/bozai.png';
+import { useState } from 'react';
 
 const BASE_URL = 'http://localhost:3000';
 // http://toutiao.itheima.net/resources/images
@@ -57,6 +59,10 @@ const tabs = [
 ];
 
 function App() {
+  // 渲染评论列表
+  // 1、使用useState维护list
+  const [commentList, setCommentList] = useState(list);
+
   return (
     <div className="App">
       {/* 导航 Tab */}
@@ -105,39 +111,41 @@ function App() {
         {/* 评论列表 */}
         <div className="reply-list">
           {/* 评论项 */}
-          <div className="reply-item">
-            {/* 头像 */}
-            <div className="root-reply-avatar">
-              <div className="bili-avatar">
-                <img
-                  className="bili-avatar-img"
-                  alt=""
-                  src='http://localhost:3000/10/98.jpg'
-                />
+          {commentList.map(item => (
+            <div key={item.rpid} className="reply-item">
+              {/* 头像 */}
+              <div className="root-reply-avatar">
+                <div className="bili-avatar">
+                  <img
+                    className="bili-avatar-img"
+                    alt=""
+                    src={item.user.avatar}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="content-wrap">
-              {/* 用户名 */}
-              <div className="user-info">
-                <div className="user-name">hxl</div>
-              </div>
-              {/* 评论内容 */}
-              <div className="root-reply">
-                <span className="reply-content">哈哈哈哈</span>
-                <div className="reply-info">
-                  {/* 评论时间 */}
-                  <span className="reply-time">2023-10-10</span>
-                  {/* 评论数量 */}
-                  <span className="reply-time">点赞数:10</span>
-                  {/* 条件 */}
-                  <span className="delete-btn">
-                    删除
-                  </span>
+              <div className="content-wrap">
+                {/* 用户名 */}
+                <div className="user-info">
+                  <div className="user-name">{item.user.uname}</div>
+                </div>
+                {/* 评论内容 */}
+                <div className="root-reply">
+                  <span className="reply-content">{item.content}</span>
+                  <div className="reply-info">
+                    {/* 评论时间 */}
+                    <span className="reply-time">{item.ctime}</span>
+                    {/* 评论数量 */}
+                    <span className="reply-time">点赞数:{item.like}</span>
+                    {/* 条件 */}
+                    <span className="delete-btn">
+                      删除
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
