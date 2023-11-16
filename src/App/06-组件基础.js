@@ -1,4 +1,4 @@
-// app
+// 06-组件基础
 
 function App() {
   return (
