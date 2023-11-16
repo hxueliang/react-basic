@@ -1,5 +1,6 @@
 // 10-评论案例
 // 10.1、列表渲染
+// 10.2、实现删除评论功能
 import '../style/10-app.scss';
 import avatar from '../images/bozai.png';
 import { useState } from 'react';
@@ -62,6 +63,11 @@ function App() {
   // 渲染评论列表
   // 1、使用useState维护list
   const [commentList, setCommentList] = useState(list);
+
+  // 10.2、删除评论
+  const handleDel = (id) => {
+    setCommentList(commentList.filter(item => item.rpid !== id));
+  };
 
   return (
     <div className="App">
@@ -138,9 +144,13 @@ function App() {
                     {/* 评论数量 */}
                     <span className="reply-time">点赞数:{item.like}</span>
                     {/* 条件 */}
-                    <span className="delete-btn">
-                      删除
-                    </span>
+                    {
+                      user.uid === item.user.uid
+                      &&
+                      <span className="delete-btn" onClick={() => handleDel(item.rpid)}>
+                        删除
+                      </span>
+                    }
                   </div>
                 </div>
               </div>
