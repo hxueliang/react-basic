@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App/01-JSX基础-识别js表达式';
+import App from './App/02-JSX基础-列表渲染';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
