@@ -2,9 +2,11 @@
 // 10.1、列表渲染
 // 10.2、实现删除评论功能
 // 10.3、实现tab切换功能
+// 10.4、实现评论排序功能
 import '../style/10-app.scss';
 import avatar from '../images/bozai.png';
 import { useState } from 'react';
+import { orderBy } from 'lodash';
 
 const BASE_URL = 'http://localhost:3000';
 // http://toutiao.itheima.net/resources/images
@@ -63,7 +65,7 @@ const tabs = [
 function App() {
   // 渲染评论列表
   // 1、使用useState维护list
-  const [commentList, setCommentList] = useState(list);
+  const [commentList, setCommentList] = useState(orderBy(list, 'like', 'desc'));
 
   // 10.2、删除评论
   const handleDel = (id) => {
@@ -74,6 +76,13 @@ function App() {
   const [tabType, setTabType] = useState(tabs[0].type);
   const handleTabChange = (type) => {
     setTabType(type);
+    changeCommentList(type);
+  };
+
+  // 10.4、评论排序
+  const typeMap = { hot: 'like', time: 'ctime' };
+  const changeCommentList = (type) => {
+    setCommentList(orderBy(commentList, typeMap[type], 'desc'));
   };
 
   return (
