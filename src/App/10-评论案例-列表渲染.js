@@ -1,6 +1,7 @@
 // 10-评论案例
 // 10.1、列表渲染
 // 10.2、实现删除评论功能
+// 10.3、实现tab切换功能
 import '../style/10-app.scss';
 import avatar from '../images/bozai.png';
 import { useState } from 'react';
@@ -69,6 +70,12 @@ function App() {
     setCommentList(commentList.filter(item => item.rpid !== id));
   };
 
+  // 10.3、切换Tab
+  const [tabType, setTabType] = useState(tabs[0].type);
+  const handleTabChange = (type) => {
+    setTabType(type);
+  };
+
   return (
     <div className="App">
       {/* 导航 Tab */}
@@ -84,7 +91,8 @@ function App() {
             {tabs.map(item =>
               <span
                 key={item.type}
-                className="nav-item"
+                className={`nav-item ${tabType === item.type ? 'active' : ''}`}
+                onClick={() => handleTabChange(item.type)}
               >
                 {item.text}
               </span>
