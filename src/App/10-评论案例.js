@@ -1,9 +1,10 @@
 // 10-评论案例
-// 10.1、列表渲染
-// 10.2、实现删除评论功能
-// 10.3、实现tab切换功能
-// 10.4、实现评论排序功能
-// 10.5、使用classnames优化class写法
+// 1、列表渲染
+// 2、实现删除评论功能
+// 3、实现tab切换功能
+// 4、实现评论排序功能
+// 5、使用classnames优化class写法
+// 6、实现核心功能
 import '../style/10-app.scss';
 import avatar from '../images/bozai.png';
 import { useState } from 'react';
