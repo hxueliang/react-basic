@@ -6,9 +6,10 @@
 // 5、使用classnames优化class写法
 // 6、实现核心功能
 // 7、实现随机id和时间格式化
+// 8、实现清空内容和输入框聚集
 import '../style/10-app.scss';
 import avatar from '../images/bozai.png';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { orderBy } from 'lodash';
 import classNames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
@@ -91,9 +92,9 @@ function App() {
     setCommentList(orderBy(commentList, typeMap[type], 'desc'));
   };
 
-
   // 发表评论
   const [content, setContent] = useState('');
+  const contentRef = useRef(null);
   const handlePublish = () => {
     console.log(content);
     setCommentList([
@@ -110,6 +111,8 @@ function App() {
         like: 126
       }
     ]);
+    setContent('');
+    contentRef.current.focus();
   };
 
   return (
@@ -151,6 +154,7 @@ function App() {
             <textarea
               className="reply-box-textarea"
               placeholder="发一条友善的评论"
+              ref={contentRef}
               value={content}
               onChange={e => setContent(e.target.value)}
             />
