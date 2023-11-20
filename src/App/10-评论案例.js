@@ -5,11 +5,14 @@
 // 4、实现评论排序功能
 // 5、使用classnames优化class写法
 // 6、实现核心功能
+// 7、实现随机id和时间格式化
 import '../style/10-app.scss';
 import avatar from '../images/bozai.png';
 import { useState } from 'react';
 import { orderBy } from 'lodash';
 import classNames from 'classnames';
+import { v4 as uuidv4 } from 'uuid';
+import dayjs from 'dayjs';
 
 const BASE_URL = 'http://localhost:3000';
 // http://toutiao.itheima.net/resources/images
@@ -96,14 +99,14 @@ function App() {
     setCommentList([
       ...commentList,
       {
-        rpid: +new Date(),
+        rpid: uuidv4(),
         user: {
           uid: "13258165",
           avatar: `${BASE_URL}/10/98.jpg`,
           uname: "周杰伦"
         },
         content,
-        ctime: "10-18 08: 15",
+        ctime: dayjs(new Date()).format('MM-DD HH:mm'),
         like: 126
       }
     ]);
