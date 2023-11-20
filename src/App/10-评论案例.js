@@ -88,6 +88,27 @@ function App() {
     setCommentList(orderBy(commentList, typeMap[type], 'desc'));
   };
 
+
+  // 发表评论
+  const [content, setContent] = useState('');
+  const handlePublish = () => {
+    console.log(content);
+    setCommentList([
+      ...commentList,
+      {
+        rpid: +new Date(),
+        user: {
+          uid: "13258165",
+          avatar: `${BASE_URL}/10/98.jpg`,
+          uname: "周杰伦"
+        },
+        content,
+        ctime: "10-18 08: 15",
+        like: 126
+      }
+    ]);
+  };
+
   return (
     <div className="App">
       {/* 导航 Tab */}
@@ -127,10 +148,12 @@ function App() {
             <textarea
               className="reply-box-textarea"
               placeholder="发一条友善的评论"
+              value={content}
+              onChange={e => setContent(e.target.value)}
             />
             {/* 发布按钮 */}
             <div className="reply-box-send">
-              <div className="send-text">发布</div>
+              <div className="send-text" onClick={handlePublish}>发布</div>
             </div>
           </div>
         </div>
