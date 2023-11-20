@@ -3,10 +3,12 @@
 // 10.2、实现删除评论功能
 // 10.3、实现tab切换功能
 // 10.4、实现评论排序功能
+// 10.5、使用classnames优化class写法
 import '../style/10-app.scss';
 import avatar from '../images/bozai.png';
 import { useState } from 'react';
 import { orderBy } from 'lodash';
+import classNames from 'classnames';
 
 const BASE_URL = 'http://localhost:3000';
 // http://toutiao.itheima.net/resources/images
@@ -100,7 +102,7 @@ function App() {
             {tabs.map(item =>
               <span
                 key={item.type}
-                className={`nav-item ${tabType === item.type ? 'active' : ''}`}
+                className={classNames('nav-item', { active: tabType === item.type })}
                 onClick={() => handleTabChange(item.type)}
               >
                 {item.text}
