@@ -11,6 +11,7 @@
  * 8、实现清空内容和输入框聚集
  * 9、通过接口获取评论列表数据
  * 10、自定义hook封装请求逻辑
+ * 11、封装评论项Item组件
  */
 import '../style/10-app.scss';
 import avatar from '../images/bozai.png';
@@ -52,11 +53,61 @@ const user = {
   // 用户昵称
   uname: '黑马前端',
 };
+
 // 导航 Tab 数组
 const tabs = [
   { type: 'hot', text: '最热' },
   { type: 'time', text: '最新' },
 ];
+
+/**
+ * item组件
+ * 
+ * 抽象原则：
+ * App作为“智能组件”，负责数据获取
+ * Item作为“UI组件”，负责数据渲染
+ */
+function Item({ item, onDel }) {
+  return (
+    <div className="reply-item">
+      {/* 头像 */}
+      <div className="root-reply-avatar">
+        <div className="bili-avatar">
+          <img
+            className="bili-avatar-img"
+            alt=""
+            src={item.user.avatar}
+          />
+        </div>
+      </div>
+
+      <div className="content-wrap">
+        {/* 用户名 */}
+        <div className="user-info">
+          <div className="user-name">{item.user.uname}</div>
+        </div>
+        {/* 评论内容 */}
+        <div className="root-reply">
+          <span className="reply-content">{item.content}</span>
+          <div className="reply-info">
+            {/* 评论时间 */}
+            <span className="reply-time">{item.ctime}</span>
+            {/* 评论数量 */}
+            <span className="reply-time">点赞数:{item.like}</span>
+            {/* 条件 */}
+            {
+              user.uid === item.user.uid
+              &&
+              <span className="delete-btn" onClick={() => onDel(item.rpid)}>
+                删除
+              </span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function App() {
   // 1、自定义hook封装请求逻辑
@@ -155,45 +206,7 @@ function App() {
         {/* 评论列表 */}
         <div className="reply-list">
           {/* 评论项 */}
-          {commentList.map(item => (
-            <div key={item.rpid} className="reply-item">
-              {/* 头像 */}
-              <div className="root-reply-avatar">
-                <div className="bili-avatar">
-                  <img
-                    className="bili-avatar-img"
-                    alt=""
-                    src={item.user.avatar}
-                  />
-                </div>
-              </div>
-
-              <div className="content-wrap">
-                {/* 用户名 */}
-                <div className="user-info">
-                  <div className="user-name">{item.user.uname}</div>
-                </div>
-                {/* 评论内容 */}
-                <div className="root-reply">
-                  <span className="reply-content">{item.content}</span>
-                  <div className="reply-info">
-                    {/* 评论时间 */}
-                    <span className="reply-time">{item.ctime}</span>
-                    {/* 评论数量 */}
-                    <span className="reply-time">点赞数:{item.like}</span>
-                    {/* 条件 */}
-                    {
-                      user.uid === item.user.uid
-                      &&
-                      <span className="delete-btn" onClick={() => handleDel(item.rpid)}>
-                        删除
-                      </span>
-                    }
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+          {commentList.map(item => <Item key={item.rpid} item={item} onDel={handleDel} />)}
         </div>
       </div>
     </div>
