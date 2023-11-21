@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App/21-自定义Hook';
+import App from './App/22-Hook的使用规则';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
