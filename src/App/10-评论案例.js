@@ -1,12 +1,15 @@
-// 10-评论案例
-// 1、列表渲染
-// 2、实现删除评论功能
-// 3、实现tab切换功能
-// 4、实现评论排序功能
-// 5、使用classnames优化class写法
-// 6、实现核心功能
-// 7、实现随机id和时间格式化
-// 8、实现清空内容和输入框聚集
+/**
+ * 10-评论案例
+ * 
+ * 1、列表渲染
+ * 2、实现删除评论功能
+ * 3、实现tab切换功能
+ * 4、实现评论排序功能
+ * 5、使用classnames优化class写法
+ * 6、实现核心功能
+ * 7、实现随机id和时间格式化
+ * 8、实现清空内容和输入框聚集
+ */
 import '../style/10-app.scss';
 import avatar from '../images/bozai.png';
 import { useState, useRef } from 'react';
