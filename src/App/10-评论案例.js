@@ -10,6 +10,7 @@
  * 7、实现随机id和时间格式化
  * 8、实现清空内容和输入框聚集
  * 9、通过接口获取评论列表数据
+ * 10、自定义hook封装请求逻辑
  */
 import '../style/10-app.scss';
 import avatar from '../images/bozai.png';
@@ -22,6 +23,25 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3000';
 // http://toutiao.itheima.net/resources/images
+
+
+// 获取接口评论列表数据
+function useCommentList() {
+  // 1、获取接口评论列表数据
+  const [commentList, setCommentList] = useState([]);
+  useEffect(() => {
+    async function getList() {
+      const res = await axios.get('http://localhost:3011/comment-list');
+      setCommentList(res.data);
+    }
+    getList();
+  }, []);
+
+  return {
+    commentList,
+    setCommentList,
+  };
+}
 
 // 当前登录用户信息
 const user = {
@@ -39,15 +59,8 @@ const tabs = [
 ];
 
 function App() {
-  // 1、获取接口评论列表数据
-  const [commentList, setCommentList] = useState([]);
-  useEffect(() => {
-    async function getList() {
-      const res = await axios.get('http://localhost:3011/comment-list');
-      setCommentList(res.data);
-    }
-    getList();
-  }, []);
+  // 1、自定义hook封装请求逻辑
+  const { commentList, setCommentList } = useCommentList();
 
   // 10.2、删除评论
   const handleDel = (id) => {
