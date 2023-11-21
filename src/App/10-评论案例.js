@@ -9,54 +9,20 @@
  * 6、实现核心功能
  * 7、实现随机id和时间格式化
  * 8、实现清空内容和输入框聚集
+ * 9、通过接口获取评论列表数据
  */
 import '../style/10-app.scss';
 import avatar from '../images/bozai.png';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { orderBy } from 'lodash';
 import classNames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
+import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3000';
 // http://toutiao.itheima.net/resources/images
 
-// 评论列表数据
-const list = [
-  {
-    rpid: 3,
-    user: {
-      uid: "13258165",
-      avatar: `${BASE_URL}/10/98.jpg`,
-      uname: "周杰伦"
-    },
-    content: "哎哟，不错哦",
-    ctime: "10-18 08: 15",
-    like: 126
-  },
-  {
-    rpid: 2,
-    user: {
-      uid: "36080105",
-      avatar: `${BASE_URL}/10/98.jpg`,
-      uname: "许嵩"
-    },
-    content: "我寻你千百度 日出到迟暮",
-    ctime: "11-13 11: 29",
-    like: 88
-  },
-  {
-    rpid: 1,
-    user: {
-      uid: "30009257",
-      avatar: `${BASE_URL}/10/98.jpg`,
-      uname: "黑马前端"
-    },
-    content: "学前端就来黑马",
-    ctime: "10-19 09: 00",
-    like: 66
-  }
-];
 // 当前登录用户信息
 const user = {
   // 用户id
@@ -73,9 +39,15 @@ const tabs = [
 ];
 
 function App() {
-  // 渲染评论列表
-  // 1、使用useState维护list
-  const [commentList, setCommentList] = useState(orderBy(list, 'like', 'desc'));
+  // 1、获取接口评论列表数据
+  const [commentList, setCommentList] = useState([]);
+  useEffect(() => {
+    async function getList() {
+      const res = await axios.get('http://localhost:3011/comment-list');
+      setCommentList(res.data);
+    }
+    getList();
+  }, []);
 
   // 10.2、删除评论
   const handleDel = (id) => {
