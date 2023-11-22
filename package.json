@@ -20,6 +20,7 @@
   },
   "scripts": {
     "serve10": "json-server src/db/10-db.json --port 3011",
+    "serve30": "json-server src/db/30-db.json --port 3012",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
