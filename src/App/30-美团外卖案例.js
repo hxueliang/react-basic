@@ -5,6 +5,7 @@
  * 
  * 1、实现食品列表
  * 2、实现食品菜单
+ * 3、实现食品列表切换显示
  */
 
 import { useEffect } from 'react';
@@ -25,7 +26,7 @@ const App = () => {
     dispatch(fetchFoodsList());
   }, [dispatch]);
 
-  const { foodsList } = useSelector(state => state.foods);
+  const { foodsList, activeIndex } = useSelector(state => state.foods);
 
   return (
     <div className="home">
@@ -40,9 +41,9 @@ const App = () => {
           <div className="list-content">
             <div className="goods-list">
               {/* 外卖商品列表 */}
-              {foodsList.map(item => {
+              {foodsList.map((item, index) => {
                 return (
-                  <FoodsCategory
+                  activeIndex === index && <FoodsCategory
                     key={item.tag}
                     // 列表标题
                     name={item.name}
