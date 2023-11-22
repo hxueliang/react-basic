@@ -4,6 +4,7 @@
  * 素材：https://git.itcast.cn/heimaqianduan/redux-meituan
  * 
  * 1、实现食品列表
+ * 2、实现食品菜单
  */
 
 import { useEffect } from 'react';
