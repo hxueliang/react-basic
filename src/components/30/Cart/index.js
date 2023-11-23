@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { increCount, decreCount, clearCartList } from '../../../store/modules/takeaway';
@@ -9,20 +10,32 @@ const Cart = () => {
   const { cartList } = useSelector(state => state.foods);
   const totalPrice = cartList.reduce((sum, item) => sum + item.price * item.count, 0);
   const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
+
+  const onShowList = () => {
+    cartList.length > 0 && setVisible(!visible);
+  };
 
   return (
     <div className="cartContainer">
       {/* 遮罩层 添加visible类名可以显示出来 */}
       <div
-        className={classNames('cartOverlay')}
+        className={classNames(
+          'cartOverlay',
+          { visible }
+        )}
+        onClick={() => setVisible(!visible)}
       />
       <div className="cart">
         {/* fill 添加fill类名可以切换购物车状态*/}
         {/* 购物车数量 */}
-        <div className={classNames(
-          'icon',
-          { fill: cartList.length > 0 }
-        )}>
+        <div
+          className={classNames(
+            'icon',
+            { fill: cartList.length > 0 }
+          )}
+          onClick={onShowList}
+        >
           {cartList.length > 0 && <div className="cartCornerMark">{cartList.length}</div>}
         </div>
         {/* 购物车价格 */}
@@ -45,7 +58,7 @@ const Cart = () => {
       {/* 添加visible类名 div会显示出来 */}
       <div className={classNames(
         'cartPanel',
-        { visible: cartList.length > 0 }
+        { visible }
       )}>
         <div className="header">
           <span className="text">购物车</span>
