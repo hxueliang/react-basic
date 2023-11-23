@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import App from './App/31-Router-快速体验';
+import App from './App/32-Router-抽象路由模块';
 import store from './store';
 
 const router = createBrowserRouter([
