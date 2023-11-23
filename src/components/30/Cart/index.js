@@ -1,14 +1,14 @@
 import classNames from 'classnames';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { increCount, decreCount, clearCartList } from '../../../store/modules/takeaway';
 import Count from '../Count';
 import './index.scss';
 
 const Cart = () => {
-  const cart = [];
   const { cartList } = useSelector(state => state.foods);
   const totalPrice = cartList.reduce((sum, item) => sum + item.price * item.count, 0);
-  console.log(totalPrice);
+  const dispatch = useDispatch();
 
   return (
     <div className="cartContainer">
@@ -43,17 +43,20 @@ const Cart = () => {
         )}
       </div>
       {/* 添加visible类名 div会显示出来 */}
-      <div className={classNames('cartPanel')}>
+      <div className={classNames(
+        'cartPanel',
+        { visible: cartList.length > 0 }
+      )}>
         <div className="header">
           <span className="text">购物车</span>
-          <span className="clearCart">
+          <span className="clearCart" onClick={() => dispatch(clearCartList())}>
             清空购物车
           </span>
         </div>
 
         {/* 购物车列表 */}
         <div className="scrollArea">
-          {cart.map(item => {
+          {cartList.map(item => {
             return (
               <div className="cartItem" key={item.id}>
                 <img className="shopPic" src={item.picture} alt="" />
@@ -69,6 +72,8 @@ const Cart = () => {
                 <div className="skuBtnWrapper btnGroup">
                   <Count
                     count={item.count}
+                    onPlus={() => dispatch(increCount(item))}
+                    onMinus={() => dispatch(decreCount(item))}
                   />
                 </div>
               </div>
