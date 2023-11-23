@@ -22,9 +22,9 @@
   "scripts": {
     "serve10": "json-server src/db/10-db.json --port 3011",
     "serve30": "json-server src/db/30-db.json --port 3012",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "craco": "^0.0.3",
     "json-server": "^0.17.4",
     "node-sass": "^9.0.0",
     "sass-loader": "^13.3.2",
