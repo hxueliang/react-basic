@@ -17,7 +17,6 @@ const foodsStore = createSlice({
     },
     setCartList(state, action) {
       const item = state.cartList.find(item => item.id === action.payload.id);
-      console.log(item);
       item ? item.count++ : state.cartList.push(action.payload);
     }
   }
