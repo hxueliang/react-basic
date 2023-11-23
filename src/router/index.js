@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 
-import App from '../App/32-Router-抽象路由模块';
+import App from '../App/33-Router-路由导航';
 import Login from '../page/login';
 import Home from '../page/home';
 
