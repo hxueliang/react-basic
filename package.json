@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "antd-mobile": "^5.33.0",
     "axios": "^1.6.2",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.10",
@@ -22,6 +23,7 @@
   "scripts": {
     "serve10": "json-server src/db/10-db.json --port 3011",
     "serve30": "json-server src/db/30-db.json --port 3012",
+    "serve40": "json-server src/db/40-db.json --port 3013",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",

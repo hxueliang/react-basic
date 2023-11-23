@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 
-import App from '../App/34-Router-嵌套路由';
+import App from '../App/40-计事本案例';
 import Login from '../page/login';
 import Home from '../page/home';
 
