@@ -5,7 +5,7 @@ function Layout() {
     <div className="Layout">
       一级路由Layout
       <br />
-      <Link to="/layout/board">面板</Link>
+      <Link to="/layout">面板</Link>
       -
       <Link to="/layout/about">关于</Link>
       {/* 二级路由出口 */}

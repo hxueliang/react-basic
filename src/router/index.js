@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         element: <About />
       },
       {
-        path: 'board',
+        index: true,
         element: <Board />
       }
     ]
