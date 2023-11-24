@@ -6,6 +6,7 @@ import { RouterProvider } from 'react-router-dom';
 import store from './store';
 import router from './router';
 
+import './theme/40.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
