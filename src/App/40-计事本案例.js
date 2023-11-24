@@ -3,6 +3,7 @@
  * 
  * 1.路由配置
  * 2.antD主题定制
+ * 3.Redux管理账目列表
  */
 
 function App() {
