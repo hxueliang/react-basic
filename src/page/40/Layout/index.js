@@ -1,32 +1,64 @@
-import { Outlet } from "react-router-dom";
-import { Button } from 'antd-mobile';
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { TabBar } from 'antd-mobile';
+import {
+  BillOutline,
+  AddCircleOutline,
+  CalculatorOutline,
+} from 'antd-mobile-icons';
 
 import { fetchBillList } from "@store/modules/billStore";
+import './index.scss';
+
+const tabs = [
+  {
+    key: '/40/layout',
+    title: '月度账单',
+    icon: <BillOutline />,
+  },
+  {
+    key: '/40/new',
+    title: '记账',
+    icon: <AddCircleOutline />,
+  },
+  {
+    key: '/40/layout/year',
+    title: '年度账单',
+    icon: <CalculatorOutline />,
+  },
+];
 
 function Layout() {
+  const navigator = useNavigate();
+  const location = useLocation();
+  const { pathname } = location;
+
+  const setRouteActive = (value) => {
+    navigator(value);
+  };
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchBillList());
   }, [dispatch]);
 
   return (
-    <div className="Layout">
-      一级路由Layout40
-
-      {/* 测试全局样式 */}
-      <div>
-        <Button color="primary">全局样式</Button>
+    <div className="ka-layout theme40">
+      <div className="container">
+        {/* 二级路由出口 */}
+        <Outlet />
       </div>
 
-      {/* 测试局部样式 */}
-      <div className="theme40">
-        <Button color="primary">局部样式</Button>
-      </div>
-
-      {/* 二级路由出口 */}
-      <Outlet />
+      <TabBar
+        className="footer"
+        activeKey={pathname}
+        onChange={value => setRouteActive(value)}
+      >
+        {tabs.map(item => (
+          <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
+        ))}
+      </TabBar>
     </div>
   );
 }
