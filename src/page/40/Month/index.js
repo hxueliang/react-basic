@@ -18,6 +18,22 @@ function Month() {
     // return groupBy(billList, item => item.date);
     return groupBy(billList, item => dayjs(item.date).format('YYYY-MM'));
   }, [billList]);
+  // 当前月账单
+  const [currentMonthList, setCurrentMonthList] = useState([]);
+  // 计算当前月：支出、收入、结余
+  const monthResult = useMemo(() => {
+    const pay = currentMonthList
+      .filter(item => item.type === 'pay')
+      .reduce((a, c) => a + c.money, 0);
+    const income = currentMonthList
+      .filter(item => item.type === 'income')
+      .reduce((a, c) => a + c.money, 0);
+    return {
+      pay,
+      income,
+      total: pay + income,
+    };
+  }, [currentMonthList]);
 
   /**
    * 点击日期选择窗确认
@@ -26,7 +42,12 @@ function Month() {
    */
   const onConfirm = (date) => {
     setCurrentDate(date);
+
+    const currentMonth = dayjs(date).format('YYYY-MM');
+    setCurrentMonthList(monthGroup[currentMonth] || []);
+
     setDateVisible(!dateVisible);
+
   };
 
   return (
@@ -49,15 +70,15 @@ function Month() {
           {/* 统计区域 */}
           <div className='twoLineOverview'>
             <div className="item">
-              <span className="money">{100}</span>
+              <span className="money">{Math.abs(monthResult.pay).toFixed(2)}</span>
               <span className="type">支出</span>
             </div>
             <div className="item">
-              <span className="money">{200}</span>
+              <span className="money">{monthResult.income.toFixed(2)}</span>
               <span className="type">收入</span>
             </div>
             <div className="item">
-              <span className="money">{200}</span>
+              <span className="money">{Math.abs(monthResult.total).toFixed(2)}</span>
               <span className="type">结余</span>
             </div>
           </div>
