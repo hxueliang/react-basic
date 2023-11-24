@@ -6,7 +6,7 @@
       "@c/*": ["src/components/*"],
       "@img/*": ["src/images/*"],
       "@store/*": ["src/store/*"],
-      "@style/*": ["src/style/*"],
+      "@style/*": ["src/style/*"]
     }
   }
 }

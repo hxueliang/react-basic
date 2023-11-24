@@ -9,6 +9,12 @@ import Layout from '../page/Layout';
 import About from '../page/About';
 import Board from '../page/Board';
 
+// 40-计事本案例
+import Layout40 from '../page/40/Layout';
+import Month from '../page/40/Month';
+import Year from '../page/40/Year';
+import New40 from '../page/40/New';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -27,6 +33,24 @@ const router = createBrowserRouter([
         element: <Board />
       }
     ]
+  },
+  {
+    path: '/40/layout',
+    element: <Layout40 />,
+    children: [
+      {
+        index: true,
+        element: <Month />
+      },
+      {
+        path: 'year',
+        element: <Year />
+      }
+    ]
+  },
+  {
+    path: '/40/new',
+    element: <New40 />
   },
   {
     path: '/home',
