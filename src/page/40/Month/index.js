@@ -1,7 +1,9 @@
 import { NavBar, DatePicker } from 'antd-mobile';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
+import { groupBy } from 'lodash';
 
 import './index.scss';
 
@@ -10,6 +12,12 @@ function Month() {
   const [dateVisible, setDateVisible] = useState(false);
   // 时间显示
   const [currentDate, setCurrentDate] = useState(() => new Date());
+  // 按月做数据分组，方便按月显示数据
+  const { billList } = useSelector(state => state.bill);
+  const monthGroup = useMemo(() => {
+    // return groupBy(billList, item => item.date);
+    return groupBy(billList, item => dayjs(item.date).format('YYYY-MM'));
+  }, [billList]);
 
   /**
    * 点击日期选择窗确认
