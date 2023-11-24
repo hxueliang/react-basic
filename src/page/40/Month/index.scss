@@ -52,7 +52,8 @@
           transition: all 0.3s;
         }
         .arrow.expand {
-          transform: translate(0, 2px) rotate(45deg);
+          // 改变剪头旋转方向
+          transform: translate(0, 2px) rotate(45.01deg);
         }
       }
     }
