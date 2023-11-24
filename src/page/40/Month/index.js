@@ -1,5 +1,5 @@
 import { NavBar, DatePicker } from 'antd-mobile';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
@@ -49,6 +49,12 @@ function Month() {
     setDateVisible(!dateVisible);
 
   };
+
+  // 初始化渲染当前朋统计数据
+  useEffect(() => {
+    const currentMonth = dayjs().format('YYYY-MM');
+    setCurrentMonthList(monthGroup[currentMonth] || []);
+  }, [monthGroup]);
 
   return (
     <div className="monthlyBill">
