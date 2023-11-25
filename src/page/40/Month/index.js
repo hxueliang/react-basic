@@ -5,21 +5,27 @@ import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import { groupBy } from 'lodash';
 
+import DailyBill from './components/DailyBill';
+
 import './index.scss';
 
 function Month() {
   // 显示日期选择窗
   const [dateVisible, setDateVisible] = useState(false);
+
   // 时间显示
   const [currentDate, setCurrentDate] = useState(() => new Date());
+
   // 按月做数据分组，方便按月显示数据
   const { billList } = useSelector(state => state.bill);
   const monthGroup = useMemo(() => {
     // return groupBy(billList, item => item.date);
     return groupBy(billList, item => dayjs(item.date).format('YYYY-MM'));
   }, [billList]);
+
   // 当前月账单
   const [currentMonthList, setCurrentMonthList] = useState([]);
+
   // 计算当前月：支出、收入、结余
   const monthResult = useMemo(() => {
     const pay = currentMonthList
@@ -32,6 +38,16 @@ function Month() {
       pay,
       income,
       total: pay + income,
+    };
+  }, [currentMonthList]);
+
+  // 按日做数据分组
+  const dayGroup = useMemo(() => {
+    const data = groupBy(currentMonthList, item => dayjs(item.date).format('YYYY-MM-DD'));
+    const keys = Object.keys(data).sort();
+    return {
+      data,
+      keys,
     };
   }, [currentMonthList]);
 
@@ -50,7 +66,7 @@ function Month() {
 
   };
 
-  // 初始化渲染当前朋统计数据
+  // 初始化渲染当前月统计数据
   useEffect(() => {
     const currentMonth = dayjs().format('YYYY-MM');
     setCurrentMonthList(monthGroup[currentMonth] || []);
@@ -99,6 +115,12 @@ function Month() {
             max={new Date()}
           />
         </div>
+        {/* 单日列表统计 */}
+        {
+          dayGroup.keys.map(key => {
+            return <DailyBill key={key} date={key} billList={dayGroup.data[key]} />;
+          })
+        }
       </div>
     </div>
   );
