@@ -1,18 +1,47 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Button, DatePicker, Input, NavBar } from 'antd-mobile';
+import { Button, DatePicker, Input, NavBar, Toast } from 'antd-mobile';
 import classNames from 'classnames';
 
 import Icon from '@c/40/Icon';
 import { billListData } from '@/contants/40-billTypeToName';
+import { addBillList } from '@store/modules/billStore';
 
 import './index.scss';
 
 function New() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // 控制改入支出状态
   const [billType, setBillType] = useState('pay'); // pay income
+
+  // 输入的金额
+  const [money, setMoney] = useState(0);
+  const moneyChange = value => {
+    setMoney(+value);
+  };
+
+  // 账单类型
+  const [useFor, setUseFor] = useState('');
+
+  /**
+   * 保存账单
+   */
+  const saveBill = () => {
+    const data = {
+      type: billType,
+      money: billType === 'pay' ? -money : +money,
+      date: new Date(),
+      useFor,
+    };
+    if (!money || !useFor) {
+      Toast.show({ content: '金额和类型不能为空' });
+      return;
+    }
+    dispatch(addBillList(data));
+  };
 
   return (
     <div className="keepAccounts">
@@ -54,6 +83,8 @@ function New() {
                 className="input"
                 placeholder="0.00"
                 type="number"
+                value={money}
+                onChange={moneyChange}
               />
               <span className="iconYuan">¥</span>
             </div>
@@ -75,7 +106,7 @@ function New() {
                         ''
                       )}
                       key={item.type}
-
+                      onClick={() => setUseFor(item.type)}
                     >
                       <div className="icon">
                         <Icon type={item.type} />
@@ -91,7 +122,7 @@ function New() {
       </div>
 
       <div className="btns">
-        <Button className="btn save">
+        <Button className="btn save" onClick={saveBill}>
           保 存
         </Button>
       </div>
