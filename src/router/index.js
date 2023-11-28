@@ -1,11 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import router50 from './50-JIKE案例';
 import router40 from './40-计事本案例';
 import router34 from './34-Router-嵌套路由';
 import router32 from './32-Router-抽象路由模块';
 import router0 from './common';
 
 const router = createBrowserRouter([
+  ...router50,
   ...router40,
   ...router34,
   ...router32,

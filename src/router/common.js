@@ -1,4 +1,4 @@
-import App from '../App/30-美团外卖案例';
+import App from '@/App/50-JIKE案例';
 
 const router0 = [
   {
