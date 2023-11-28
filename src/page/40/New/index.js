@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
 import { Button, DatePicker, Input, NavBar, Toast } from 'antd-mobile';
 import classNames from 'classnames';
 
@@ -23,6 +24,12 @@ function New() {
     setMoney(+value);
   };
 
+  // 控制时间打开和关闭
+  const [dateVisible, setDateVisible] = useState(false);
+
+  // 存储选择的时间
+  const [date, setDate] = useState(new Date());
+
   // 账单类型
   const [useFor, setUseFor] = useState('');
 
@@ -33,7 +40,7 @@ function New() {
     const data = {
       type: billType,
       money: billType === 'pay' ? -money : +money,
-      date: new Date(),
+      date,
       useFor,
     };
     if (!money || !useFor) {
@@ -41,6 +48,16 @@ function New() {
       return;
     }
     dispatch(addBillList(data));
+  };
+
+  /**
+   * 点击时间确定按键
+   * 
+   * @param {date} value 选择的时间
+   */
+  const dateConfirm = value => {
+    setDate(dayjs(value).format('YYYY-MM-DD HH:mm:ss'));
+    setDateVisible(false);
   };
 
   return (
@@ -71,11 +88,13 @@ function New() {
           <div className="kaForm">
             <div className="date">
               <Icon type="calendar" className="icon" />
-              <span className="text">{'今天'}</span>
+              <span className="text" onClick={() => setDateVisible(true)}>{dayjs(date).format('YYYY-MM-DD')}</span>
               <DatePicker
-                className="kaDate"
+                className="kaDate theme40"
                 title="记账日期"
                 max={new Date()}
+                visible={dateVisible}
+                onConfirm={dateConfirm}
               />
             </div>
             <div className="kaInput">
@@ -103,7 +122,7 @@ function New() {
                     <div
                       className={classNames(
                         'item',
-                        ''
+                        { selected: item.type === useFor }
                       )}
                       key={item.type}
                       onClick={() => setUseFor(item.type)}
