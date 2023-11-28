@@ -19,9 +19,9 @@ import NavBar from '../components/30/NavBar';
 import Menu from '../components/30/Menu';
 import Cart from '../components/30/Cart';
 import FoodsCategory from '../components/30/FoodsCategory';
-import { fetchFoodsList } from '../store/modules/takeaway';
+import { fetchFoodsList } from '@s/modules/takeaway';
 
-import '../style/30-app.scss';
+import '@a/style/30-app.scss';
 
 const App = () => {
   const dispatch = useDispatch();

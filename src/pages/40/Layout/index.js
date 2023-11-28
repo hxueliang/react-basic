@@ -8,12 +8,12 @@ import {
   CalculatorOutline,
 } from 'antd-mobile-icons';
 
-import { fetchBillList } from "@store/modules/billStore";
+import { fetchBillList } from "@s/modules/billStore";
 import './index.scss';
 
 const tabs = [
   {
-    key: '/40/layout',
+    key: '/40',
     title: '月度账单',
     icon: <BillOutline />,
   },
@@ -23,7 +23,7 @@ const tabs = [
     icon: <AddCircleOutline />,
   },
   {
-    key: '/40/layout/year',
+    key: '/40/year',
     title: '年度账单',
     icon: <CalculatorOutline />,
   },

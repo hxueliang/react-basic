@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 import Icon from '@c/40/Icon';
 import { billListData } from '@/contants/40-billTypeToName';
-import { addBillList } from '@store/modules/billStore';
+import { addBillList } from '@s/modules/billStore';
 
 import './index.scss';
 

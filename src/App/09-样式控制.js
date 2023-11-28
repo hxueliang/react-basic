@@ -1,5 +1,5 @@
 // 09-样式控制
-import '../style/09-index.css';
+import '@a/style/09-index.css';
 
 const style = {
   color: 'green',

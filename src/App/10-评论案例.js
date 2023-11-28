@@ -13,8 +13,8 @@
  * 10、自定义hook封装请求逻辑
  * 11、封装评论项Item组件
  */
-import '../style/10-app.scss';
-import avatar from '../images/bozai.png';
+import '@a/style/10-app.scss';
+import avatar from '@a/images/bozai.png';
 import { useState, useRef, useEffect } from 'react';
 import { orderBy } from 'lodash';
 import classNames from 'classnames';

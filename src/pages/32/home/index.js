@@ -18,7 +18,7 @@ function Home() {
       <br />
 
       {/* 编程式导航 */}
-      <button onClick={() => navigator('/login')}>login</button>
+      <button onClick={() => navigator('/32/login')}>login</button>
       <br />
 
       {id && <div>{id} - {name}</div>}

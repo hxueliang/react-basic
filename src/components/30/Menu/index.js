@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setActiveIndex } from '../../../store/modules/takeaway';
+import { setActiveIndex } from '@s/modules/takeaway';
 import './index.scss';
 
 const Menu = () => {

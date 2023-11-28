@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { increCount, decreCount, clearCartList } from '../../../store/modules/takeaway';
+import { increCount, decreCount, clearCartList } from '@s/modules/takeaway';
 import Count from '../Count';
 import './index.scss';
 

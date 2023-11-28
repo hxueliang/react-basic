@@ -1,7 +1,7 @@
 // 25-Redux提交action传参
 
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increasement, toNum } from "../store/modules/counterStore";
+import { decrement, increasement, toNum } from "@s/modules/counterStore";
 
 function App() {
   const { count } = useSelector(state => state.counter);
