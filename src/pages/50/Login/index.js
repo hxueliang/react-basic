@@ -5,12 +5,19 @@ import logo from '@a/images/50/logo.png';
 import './index.scss';
 
 const Login = () => {
+  const onFinish = (values) => {
+    console.log('Success:', values);
+  };
+
   return (
     <div className="login">
       <Card className="login-container">
         <img className="login-logo" src={logo} alt="" />
         {/* 登录表单 */}
-        <Form validateTrigger={'onBlur'}>
+        <Form
+          validateTrigger={'onBlur'}
+          onFinish={onFinish}
+        >
           <Form.Item
             name="mobile"
             rules={[
