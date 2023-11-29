@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// const baseURL = 'http://localhost:3014'; // 原接口不是REST风格，50-db.json只备份
+// const baseURL = 'http://localhost:3014'; // 原接口不是REST风格，50-db用于数据格式备份
 const baseURL = 'http://geek.itheima.net/v1_0'; // 50-JIKE案例
 
 const request = axios.create({
