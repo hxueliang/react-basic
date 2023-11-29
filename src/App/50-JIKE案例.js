@@ -11,6 +11,7 @@
  * 8.登录-封装token的存取删方法
  * 9.登录-axios请求拦截器注入token
  * 10.登录-使用AuthRoute组件做路由权限控制
+ * 11.Layout-静态结构
  */
 
 function App() {
