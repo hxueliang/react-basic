@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Layout, Menu, Popconfirm } from 'antd';
 import {
   HomeOutlined,
@@ -14,22 +14,29 @@ const { Header, Sider } = Layout;
 const items = [
   {
     label: '首页',
-    key: '1',
+    key: '/50',
     icon: <HomeOutlined />,
   },
   {
     label: '文章管理',
-    key: '2',
+    key: '/50/article',
     icon: <DiffOutlined />,
   },
   {
     label: '创建文章',
-    key: '3',
+    key: '/50/publish',
     icon: <EditOutlined />,
   },
 ];
 
 const GeekLayout = () => {
+  const navigate = useNavigate();
+
+  const onMenuClick = (menu) => {
+    const path = menu.key;
+    navigate(path);
+  };
+
   return (
     <Layout>
       <Header className="header">
@@ -50,6 +57,7 @@ const GeekLayout = () => {
             theme="dark"
             defaultSelectedKeys={['1']}
             items={items}
+            onClick={onMenuClick}
             style={{ height: '100%', borderRight: 0 }}></Menu>
         </Sider>
         <Layout className="layout-content" style={{ padding: 20 }}>
