@@ -5,5 +5,17 @@
       "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3d3dy5pdGNhc3QuY24vIiwic3ViIjoiYWNmYzU3MDQtOTkzZS00NGVhLTk0ZDUtOTcwN2JlMWU1YmNlIiwianRpIjoiODlhNDViN2YtYzM2NS00NTUzLTkzMGYtNDI5MGI0NDhlZDg5IiwiaWF0IjoxNzAxMTYyNDk2LCJleHAiOjE3MDExNjYwOTZ9.VpndcIZ_pEdy-KGSXhJTHK2HxvR4YtC98rZd6PVAQYw"
     },
     "message": "OK"
+  },
+  "user.profile": {
+    "data": {
+      "id": "acfc5704-993e-44ea-94d5-9707be1e5bce",
+      "photo": "http://geek.itheima.net/images/user_head.jpg",
+      "name": "muse",
+      "mobile": "13434343434",
+      "gender": 0,
+      "birthday": "1990-11-20",
+      "intro": null
+    },
+    "message": "OK"
   }
 }

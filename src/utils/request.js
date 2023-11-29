@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getToken } from './token';
 
 // const baseURL = 'http://localhost:3014'; // 原接口不是REST风格，50-db用于数据格式备份
 const baseURL = 'http://geek.itheima.net/v1_0'; // 50-JIKE案例
@@ -10,6 +11,10 @@ const request = axios.create({
 
 // 添加请求拦截器
 request.interceptors.request.use((config) => {
+  const token = getToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
   return config;
 }, (error) => {
   return Promise.reject(error);
