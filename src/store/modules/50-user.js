@@ -20,7 +20,8 @@ const {
 const fetchLogin = (loginForm) => {
   return async (dispatch) => {
     const res = await request.post('/authorizations', loginForm);
-    dispatch(setToken(res.data.token));
+    res.data.token && dispatch(setToken(res.data.token));
+    return res;
   };
 };
 

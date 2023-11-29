@@ -1,5 +1,6 @@
-import { Card, Form, Input, Button } from 'antd';
+import { Card, Form, Input, Button, message } from 'antd';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import logo from '@a/images/50/logo.png';
 import { fetchLogin } from '@/store/modules/50-user';
@@ -8,9 +9,15 @@ import './index.scss';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    dispatch(fetchLogin(values));
+  const onFinish = async (values) => {
+    const res = await dispatch(fetchLogin(values));
+    if (res.message !== 'OK') {
+      return;
+    }
+    navigate('/50');
+    message.success('登录成功');
   };
 
   return (

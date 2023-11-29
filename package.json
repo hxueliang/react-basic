@@ -25,6 +25,7 @@
     "serve10": "json-server src/db/10-db.json --port 3011",
     "serve30": "json-server src/db/30-db.json --port 3012",
     "serve40": "json-server src/db/40-db.json --port 3013",
+    "serve50": "json-server src/db/50-db.json --port 3014",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",

@@ -1,0 +1,9 @@
+{
+  "authorizations": {
+    "data": {
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3d3dy5pdGNhc3QuY24vIiwic3ViIjoiYWNmYzU3MDQtOTkzZS00NGVhLTk0ZDUtOTcwN2JlMWU1YmNlIiwianRpIjoiMjA3NGIzYzYtYWQyZC00MmIxLTkxMGMtMTlhMzNjYmU5MzgxIiwiaWF0IjoxNzAxMTYyNDk2LCJleHAiOjE3MDExNjYwOTZ9.-0bfbQmqdHDowTxEY_t7IvwQ2fWYMH5qwj9gSvZf-0U",
+      "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3d3dy5pdGNhc3QuY24vIiwic3ViIjoiYWNmYzU3MDQtOTkzZS00NGVhLTk0ZDUtOTcwN2JlMWU1YmNlIiwianRpIjoiODlhNDViN2YtYzM2NS00NTUzLTkzMGYtNDI5MGI0NDhlZDg5IiwiaWF0IjoxNzAxMTYyNDk2LCJleHAiOjE3MDExNjYwOTZ9.VpndcIZ_pEdy-KGSXhJTHK2HxvR4YtC98rZd6PVAQYw"
+    },
+    "message": "OK"
+  }
+}
