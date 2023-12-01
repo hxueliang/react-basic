@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { getToken } from './token';
+
+import { getToken, removeToken } from './token';
+import router from '@/router';
 
 // const baseURL = 'http://localhost:3014'; // 原接口不是REST风格，50-db用于数据格式备份
 const baseURL = 'http://geek.itheima.net/v1_0'; // 50-JIKE案例
@@ -26,6 +28,12 @@ request.interceptors.response.use((response) => {
   return response.data;
 }, (error) => {
   // 超出 2xx 范围的状态码都会触发该函数
+  const { status } = error.response;
+  if (status === 401) {
+    removeToken();
+    router.navigate('/50/login');
+    window.location.reload();
+  }
   return Promise.reject(error);
 });
 
