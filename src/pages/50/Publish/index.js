@@ -6,13 +6,14 @@ import {
   Button,
   Input,
   Space,
-  Select
+  Select,
+  message,
 } from 'antd';
 import { Link } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import { getChannelAPI } from '@/apis/50/article';
+import { getChannelAPI, createArticleAPI } from '@/apis/50/article';
 
 import './index.scss';
 
@@ -32,6 +33,27 @@ const Publish = () => {
     getChannelList();
   }, []);
 
+  // 提交表单
+  const onSubmit = ({ title, content, channel_id }) => {
+    const reqData = {
+      title,
+      content,
+      cover: {
+        type: 0, // -1:自动，0:-无图，1:1张，3:3张
+        images: []
+      },
+      channel_id,
+    };
+    const createArticle = async () => {
+      const res = await createArticleAPI(reqData);
+      if (res.data.id) {
+        message.success('提交成功');
+      }
+    };
+
+    createArticle();
+  };
+
   return (
     <div className="publish">
       <Card
@@ -47,6 +69,7 @@ const Publish = () => {
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 16 }}
           initialValues={{ type: 1 }}
+          onFinish={onSubmit}
         >
           <Form.Item
             label="标题"

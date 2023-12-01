@@ -124,5 +124,9 @@
       ]
     },
     "message": "OK"
+  },
+  "mp.articles?draft=false": {
+    "data": { "id": "52a54109-e9d5-48ba-b17c-bcbab8bec63b" },
+    "message": "OK"
   }
 }

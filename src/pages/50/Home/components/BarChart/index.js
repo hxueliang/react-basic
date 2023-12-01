@@ -29,7 +29,7 @@ const BarChart = ({ title, series }) => {
     };
 
     option && myChart.setOption(option);
-  }, []);
+  }, [title, series]);
 
   return <div className="bar" ref={barRef}></div>;
 };
