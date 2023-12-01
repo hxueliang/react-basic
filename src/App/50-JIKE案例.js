@@ -19,6 +19,7 @@
  * 16.Layout-退出登录
  * 17.Layout-处理token失效
  * 18.Home-Echarts基础图表
+ * 19.Home-Echarts组件封装
  */
 
 function App() {
