@@ -18,6 +18,7 @@
  * 15.Layout-展示用户信息
  * 16.Layout-退出登录
  * 17.Layout-处理token失效
+ * 18.Home-Echarts基础图表
  */
 
 function App() {
