@@ -16,6 +16,7 @@
  * 13.Layout-点击菜单跳转路由
  * 14.Layout-根据路由高亮菜单
  * 15.Layout-展示用户信息
+ * 16.Layout-退出登录
  */
 
 function App() {

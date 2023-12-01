@@ -3,6 +3,7 @@ import {
   request,
   setToken as _setToken,
   getToken,
+  removeToken,
 } from "@/utils";
 
 const userStore = createSlice({
@@ -19,12 +20,18 @@ const userStore = createSlice({
     setUserInfo(state, action) {
       state.userInfo = action.payload;
     },
+    clearUserInfo(state) {
+      state.token = '';
+      state.userInfo = {};
+      removeToken();
+    }
   }
 });
 
 const {
   setToken,
   setUserInfo,
+  clearUserInfo,
 } = userStore.actions;
 
 const fetchLogin = (loginForm) => {
@@ -46,6 +53,7 @@ const fetchUserInfo = () => {
 export {
   fetchLogin,
   fetchUserInfo,
+  clearUserInfo,
 };
 
 export default userStore.reducer;
