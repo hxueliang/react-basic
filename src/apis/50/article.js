@@ -15,7 +15,6 @@ export function getChannelAPI() {
  * @returns 
  */
 export function createArticleAPI(data, draft = false) {
-  console.log(data);
   return request({
     url: `/mp/articles?draft=${draft}`,
     method: 'POST',

@@ -8,7 +8,10 @@ import {
   Space,
   Select,
   message,
+  Radio,
+  Upload,
 } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -21,6 +24,8 @@ const { Option } = Select;
 
 const Publish = () => {
   const [channelList, setChannelList] = useState([]);
+  const [imageList, setImageList] = useState([]);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     const getChannelList = async () => {
@@ -52,6 +57,74 @@ const Publish = () => {
     };
 
     createArticle();
+  };
+
+  /**
+   * 上传回调
+   * @param {file} imagefile 图片文件
+   */
+  const beforeUpload = imagefile => {
+    setImageList([...imageList, imagefile]);
+    return false;
+  };
+
+  /**
+   * 
+   * @param {file} imagefile 图片文件
+   */
+  const onRemoveUpload = (imagefile) => {
+    const index = imageList.indexOf(imagefile);
+    const newFileList = imageList.slice();
+    newFileList.splice(index, 1);
+    setImageList(newFileList);
+  };
+
+  /**
+   * 上传图片
+   * @returns promises
+   */
+  const fetchImageList = async () => {
+    let successCount = 0;
+    let errorCout = 0;
+    let promises = imageList.map(file => {
+      const formData = new FormData();
+      formData.append('image', file);
+      setUploading(true);
+
+      const controller = new AbortController(); // 1创建终止器
+      setTimeout(() => {
+        controller.abort(); // 3终止请求
+      }, 2000);
+
+      return fetch('http://geek.itheima.net/v1_0/upload', {
+        method: 'POST',
+        body: formData,
+        signal: controller.signal, // 2终止器的信号
+      })
+        .then(res => res.json())
+        .then(res => {
+          // message.success('图片上传成功');
+          successCount++;
+          return res;
+        })
+        .catch(res => {
+          // message.error('图片上传失败');
+          errorCout++;
+          return res;
+        });
+    });
+
+    promises = await Promise.all(promises);
+
+    successCount && message.success(`上传成功${successCount}张`);
+    errorCout && message.error(`上传失败${errorCout}张`);
+    setUploading(false);
+
+    return promises;
+  };
+
+  const onPublis = async () => {
+    const promises = await fetchImageList();
   };
 
   return (
@@ -91,6 +164,25 @@ const Publish = () => {
               }
             </Select>
           </Form.Item>
+          <Form.Item label="封面">
+            <Form.Item name="type">
+              <Radio.Group>
+                <Radio value={1}>单图</Radio>
+                <Radio value={3}>三图</Radio>
+                <Radio value={0}>无图</Radio>
+              </Radio.Group>
+            </Form.Item>
+            <Upload
+              listType="picture-card"
+              showUploadList
+              beforeUpload={beforeUpload}
+              onRemove={onRemoveUpload}
+            >
+              <div style={{ marginTop: 8 }}>
+                <PlusOutlined />
+              </div>
+            </Upload>
+          </Form.Item>
           <Form.Item
             label="内容"
             name="content"
@@ -105,7 +197,13 @@ const Publish = () => {
 
           <Form.Item wrapperCol={{ offset: 4 }}>
             <Space>
-              <Button size="large" type="primary" htmlType="submit">
+              <Button
+                size="large"
+                type="primary"
+                htmlType="submit"
+                onClick={onPublis}
+                loading={uploading}
+              >
                 发布文章
               </Button>
             </Space>
