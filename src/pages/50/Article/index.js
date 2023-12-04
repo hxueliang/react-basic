@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Card,
@@ -16,6 +17,7 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 
 import { useChannel } from '@/hooks/50/useChannel';
+import { getArticleListAPI } from '@/apis/50/article';
 import img404 from '@/assets/images/50/error.png';
 
 import './index.scss';
@@ -77,23 +79,20 @@ const Article = () => {
       }
     }
   ];
-  // 表格body数据
-  const data = [
-    {
-      id: '8218',
-      comment_count: 0,
-      cover: {
-        images: [],
-      },
-      like_count: 0,
-      pubdate: '2019-03-11 09:00:00',
-      read_count: 2,
-      status: 2,
-      title: 'wkwebview离线化加载h5资源解决方案'
-    }
-  ];
 
   const { channelList } = useChannel();
+  const [articleList, setArticleList] = useState([]);
+  const [articleCount, setArticleCount] = useState(0);
+
+  useEffect(() => {
+    async function getList() {
+      const res = await getArticleListAPI();
+      setArticleList(res.data.results);
+      setArticleCount(res.data.total_count);
+    }
+
+    getList();
+  }, []);
 
   return (
     <div>
@@ -143,8 +142,8 @@ const Article = () => {
         </Form>
       </Card>
 
-      <Card title={`根据筛选条件共查询到 count 条结果：`}>
-        <Table rowKey="id" columns={columns} dataSource={data} />
+      <Card title={`根据筛选条件共查询到 ${articleCount} 条结果：`}>
+        <Table rowKey="id" columns={columns} dataSource={articleList} />
       </Card>
     </div>
   );

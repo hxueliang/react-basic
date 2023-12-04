@@ -21,3 +21,16 @@ export function createArticleAPI(data, draft = false) {
     data,
   });
 }
+
+/**
+ * 获取文章列表
+ * @param {object} params 请求参数
+ * @returns 
+ */
+export function getArticleListAPI(params) {
+  return request({
+    url: '/mp/articles',
+    method: 'GET',
+    params,
+  });
+}
