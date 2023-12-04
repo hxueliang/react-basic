@@ -14,6 +14,8 @@ import {
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
+
+import { useChannel } from '@/hooks/50/useChannel';
 import img404 from '@/assets/images/50/error.png';
 
 import './index.scss';
@@ -91,6 +93,8 @@ const Article = () => {
     }
   ];
 
+  const { channelList } = useChannel();
+
   return (
     <div>
       <Card
@@ -114,11 +118,15 @@ const Article = () => {
           <Form.Item label="频道" name="channel_id">
             <Select
               placeholder="请选择文章频道"
-              defaultValue="lucy"
+              defaultValue={channelList[0] || ''}
               style={{ width: 120 }}
             >
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
+              {
+                channelList.map(({ id, name }) => {
+                  return <Option key={id} value={id}>{name}</Option>;
+                })
+              }
+
             </Select>
           </Form.Item>
 

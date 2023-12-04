@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   Card,
   Breadcrumb,
@@ -16,28 +16,19 @@ import { Link } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import { getChannelAPI, createArticleAPI } from '@/apis/50/article';
+import { createArticleAPI } from '@/apis/50/article';
+import { useChannel } from '@/hooks/50/useChannel';
 
 import './index.scss';
 
 const { Option } = Select;
 
 const Publish = () => {
-  const [channelList, setChannelList] = useState([]);
   const [imageList, setImageList] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [imageType, setImageType] = useState(0);
 
-  useEffect(() => {
-    const getChannelList = async () => {
-      const res = await getChannelAPI();
-      if (res?.data?.channels) {
-        setChannelList(res.data.channels);
-      }
-    };
-
-    getChannelList();
-  }, []);
+  const { channelList } = useChannel();
 
   // 提交表单
   const onSubmit = async ({ title, content, channel_id }) => {
