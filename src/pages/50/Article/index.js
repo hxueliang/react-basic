@@ -18,6 +18,7 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import { useChannel } from '@/hooks/50/useChannel';
 import { getArticleListAPI } from '@/apis/50/article';
+import { ARTICLE_STATUS, ARTICLE_STATUS_COLOR } from '@/enum/50/article';
 import img404 from '@/assets/images/50/error.png';
 
 import './index.scss';
@@ -44,7 +45,7 @@ const Article = () => {
     {
       title: '状态',
       dataIndex: 'status',
-      render: data => <Tag color="green">审核通过</Tag>
+      render: data => <Tag color={ARTICLE_STATUS_COLOR[data]}>{ARTICLE_STATUS[data]}</Tag>
     },
     {
       title: '发布时间',
