@@ -26,6 +26,7 @@ const Publish = () => {
   const [channelList, setChannelList] = useState([]);
   const [imageList, setImageList] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [imageType, setImageType] = useState(0);
 
   useEffect(() => {
     const getChannelList = async () => {
@@ -77,6 +78,14 @@ const Publish = () => {
     const newFileList = imageList.slice();
     newFileList.splice(index, 1);
     setImageList(newFileList);
+  };
+
+  /**
+   * 切换图片类型
+   */
+  const onTypeChange = (e) => {
+    const type = e.target.value;
+    setImageType(type);
   };
 
   /**
@@ -141,7 +150,7 @@ const Publish = () => {
         <Form
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 16 }}
-          initialValues={{ type: 1 }}
+          initialValues={{ type: 0 }}
           onFinish={onSubmit}
         >
           <Form.Item
@@ -166,22 +175,24 @@ const Publish = () => {
           </Form.Item>
           <Form.Item label="封面">
             <Form.Item name="type">
-              <Radio.Group>
+              <Radio.Group onChange={onTypeChange}>
                 <Radio value={1}>单图</Radio>
                 <Radio value={3}>三图</Radio>
                 <Radio value={0}>无图</Radio>
               </Radio.Group>
             </Form.Item>
-            <Upload
-              listType="picture-card"
-              showUploadList
-              beforeUpload={beforeUpload}
-              onRemove={onRemoveUpload}
-            >
-              <div style={{ marginTop: 8 }}>
-                <PlusOutlined />
-              </div>
-            </Upload>
+            {
+              imageType > 0 && <Upload
+                listType="picture-card"
+                showUploadList
+                beforeUpload={beforeUpload}
+                onRemove={onRemoveUpload}
+              >
+                <div style={{ marginTop: 8 }}>
+                  <PlusOutlined />
+                </div>
+              </Upload>
+            }
           </Form.Item>
           <Form.Item
             label="内容"
