@@ -185,6 +185,7 @@ const Publish = () => {
               imageType > 0 && <Upload
                 listType="picture-card"
                 showUploadList
+                maxCount={imageType}
                 beforeUpload={beforeUpload}
                 onRemove={onRemoveUpload}
               >
