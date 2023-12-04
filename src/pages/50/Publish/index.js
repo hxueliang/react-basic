@@ -40,13 +40,25 @@ const Publish = () => {
   }, []);
 
   // 提交表单
-  const onSubmit = ({ title, content, channel_id }) => {
+  const onSubmit = async ({ title, content, channel_id }) => {
+    if (imageList.length !== imageType) {
+      message.error('封面类型和图片数量不匹配');
+      return;
+    }
+
+    const _imageList = await fetchImageList();
+    const images = _imageList.map(item => item?.data?.url).filter(url => !!url);
+    if (images.length < imageType) {
+      message.error('封面上传失败，请重试');
+      return;
+    }
+
     const reqData = {
       title,
       content,
       cover: {
-        type: 0, // -1:自动，0:-无图，1:1张，3:3张
-        images: []
+        type: imageType, // -1:自动，0:-无图，1:1张，3:3张
+        images,
       },
       channel_id,
     };
@@ -65,7 +77,17 @@ const Publish = () => {
    * @param {file} imagefile 图片文件
    */
   const beforeUpload = imagefile => {
-    setImageList([...imageList, imagefile]);
+    // 1图
+    if (imageType === 1) {
+      setImageList([imagefile]);
+      return false;
+    }
+    // 3图
+    if (imageList.length < imageType) {
+      setImageList([...imageList, imagefile]);
+    } else {
+      setImageList([...imageList.slice(1), imagefile]);
+    }
     return false;
   };
 
@@ -125,15 +147,14 @@ const Publish = () => {
 
     promises = await Promise.all(promises);
 
-    successCount && message.success(`上传成功${successCount}张`);
-    errorCout && message.error(`上传失败${errorCout}张`);
+    // TODO：需等产品确认需求
+    if (false) {
+      successCount && message.success(`上传成功${successCount}张`);
+      errorCout && message.error(`上传失败${errorCout}张`);
+    }
     setUploading(false);
 
     return promises;
-  };
-
-  const onPublis = async () => {
-    const promises = await fetchImageList();
   };
 
   return (
@@ -213,7 +234,6 @@ const Publish = () => {
                 size="large"
                 type="primary"
                 htmlType="submit"
-                onClick={onPublis}
                 loading={uploading}
               >
                 发布文章
