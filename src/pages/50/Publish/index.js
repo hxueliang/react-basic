@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Card,
   Breadcrumb,
@@ -12,11 +12,11 @@ import {
   Upload,
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import { createArticleAPI } from '@/apis/50/article';
+import { createArticleAPI, getArticleAPI } from '@/apis/50/article';
 import { useChannel } from '@/hooks/50/useChannel';
 
 import './index.scss';
@@ -29,6 +29,10 @@ const Publish = () => {
   const [imageType, setImageType] = useState(0);
 
   const { channelList } = useChannel();
+  const [searchParams] = useSearchParams();
+  const [articleForm] = Form.useForm();
+
+  const articleId = searchParams.get('id');
 
   // 提交表单
   const onSubmit = async ({ title, content, channel_id }) => {
@@ -148,6 +152,16 @@ const Publish = () => {
     return promises;
   };
 
+  useEffect(() => {
+    async function getArticle() {
+      const res = await getArticleAPI(articleId);
+      articleForm.setFieldsValue({
+        ...res.data,
+      });
+    }
+    articleId && getArticle();
+  }, [articleId, articleForm]);
+
   return (
     <div className="publish">
       <Card
@@ -163,6 +177,7 @@ const Publish = () => {
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 16 }}
           initialValues={{ type: 0 }}
+          form={articleForm}
           onFinish={onSubmit}
         >
           <Form.Item
