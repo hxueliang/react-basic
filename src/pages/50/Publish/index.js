@@ -155,9 +155,22 @@ const Publish = () => {
   useEffect(() => {
     async function getArticle() {
       const res = await getArticleAPI(articleId);
+      const {
+        cover: {
+          type,
+          images,
+        }
+      } = res.data;
       articleForm.setFieldsValue({
         ...res.data,
+        type,
       });
+      setImageType(type);
+      setImageList(images.map(url => {
+        return {
+          url
+        };
+      }));
     }
     articleId && getArticle();
   }, [articleId, articleForm]);
@@ -213,6 +226,7 @@ const Publish = () => {
                 listType="picture-card"
                 showUploadList
                 maxCount={imageType}
+                fileList={imageList}
                 beforeUpload={beforeUpload}
                 onRemove={onRemoveUpload}
               >
