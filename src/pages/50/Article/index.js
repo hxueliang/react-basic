@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Card,
   Breadcrumb,
@@ -69,7 +69,12 @@ const Article = () => {
       render: data => {
         return (
           <Space size="middle">
-            <Button type="primary" shape="circle" icon={<EditOutlined />} />
+            <Button
+              type="primary"
+              shape="circle"
+              icon={<EditOutlined />}
+              onClick={() => navigate(`/50/publish?id=${data.id}`)}
+            />
             <Popconfirm
               title="是否确认删除？"
               okText="删除"
@@ -89,6 +94,7 @@ const Article = () => {
   ];
 
   const { channelList } = useChannel();
+  const navigate = useNavigate();
   const [articleList, setArticleList] = useState([]);
   const [articleCount, setArticleCount] = useState(0);
   const [reqData, setReqDate] = useState({
