@@ -93,6 +93,17 @@ const Article = () => {
     per_page: 5, // 当前页条数
   });
 
+  /**
+   * 切换页码
+   * @param {number} page 当面页
+   */
+  const onPageChange = page => {
+    setReqDate({
+      ...reqData,
+      page,
+    });
+  };
+
   // 提交表单
   const onSubmit = ({ status, channel_id, date }) => {
     setReqDate({
@@ -101,6 +112,7 @@ const Article = () => {
       channel_id, // 频道
       begin_pubdate: date[0].format('YYYY-MM-DD'), // 起始时间
       end_pubdate: date[1].format('YYYY-MM-DD'), // 截止时间
+      page: 1,
     });
   };
 
@@ -163,7 +175,12 @@ const Article = () => {
       </Card>
 
       <Card title={`根据筛选条件共查询到 ${articleCount} 条结果：`}>
-        <Table rowKey="id" columns={columns} dataSource={articleList} />
+        <Table rowKey="id" columns={columns} dataSource={articleList} pagination={{
+          total: articleCount,
+          pageSize: reqData.per_page,
+          current: reqData.page,
+          onChange: onPageChange,
+        }} />
       </Card>
     </div>
   );
