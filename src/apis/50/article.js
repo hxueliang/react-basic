@@ -34,3 +34,15 @@ export function getArticleListAPI(params) {
     params,
   });
 }
+
+/**
+ * 删除文章
+ * @param {string} id ID
+ * @returns 
+ */
+export function removeArticleListAPI(id) {
+  return request({
+    url: `/mp/articles/${id}`,
+    method: 'DELETE',
+  });
+}

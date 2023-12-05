@@ -11,13 +11,14 @@ import {
   Table,
   Tag,
   Space,
+  Popconfirm,
 } from 'antd';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 
 import { useChannel } from '@/hooks/50/useChannel';
-import { getArticleListAPI } from '@/apis/50/article';
+import { getArticleListAPI, removeArticleListAPI } from '@/apis/50/article';
 import { ARTICLE_STATUS, ARTICLE_STATUS_COLOR } from '@/enum/50/article';
 import img404 from '@/assets/images/50/error.png';
 
@@ -69,12 +70,18 @@ const Article = () => {
         return (
           <Space size="middle">
             <Button type="primary" shape="circle" icon={<EditOutlined />} />
-            <Button
-              type="primary"
-              danger
-              shape="circle"
-              icon={<DeleteOutlined />}
-            />
+            <Popconfirm
+              title="是否确认删除？"
+              okText="删除"
+              cancelText="取消"
+              onConfirm={() => onDelete(data)}>
+              <Button
+                type="primary"
+                danger
+                shape="circle"
+                icon={<DeleteOutlined />}
+              />
+            </Popconfirm>
           </Space>
         );
       }
@@ -102,6 +109,14 @@ const Article = () => {
       ...reqData,
       page,
     });
+  };
+
+  // 删除文章
+  const onDelete = async ({ id }) => {
+    const res = await removeArticleListAPI(id);
+    if (res.data === null) {
+      setReqDate({ ...reqData });
+    }
   };
 
   // 提交表单
