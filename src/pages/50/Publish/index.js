@@ -16,7 +16,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import { createArticleAPI, getArticleAPI } from '@/apis/50/article';
+import { createArticleAPI, getArticleAPI, updateArticleAPI } from '@/apis/50/article';
 import { useChannel } from '@/hooks/50/useChannel';
 
 import './index.scss';
@@ -42,7 +42,7 @@ const Publish = () => {
     }
 
     const _imageList = await fetchImageList();
-    const images = _imageList.map(item => item?.data?.url).filter(url => !!url);
+    const images = _imageList.map(item => item?.data?.url || item?.url).filter(url => !!url);
     if (images.length < imageType) {
       message.error('封面上传失败，请重试');
       return;
@@ -63,8 +63,14 @@ const Publish = () => {
         message.success('提交成功');
       }
     };
+    const updateArticle = async () => {
+      const res = await updateArticleAPI({ ...reqData, id: articleId });
+      if (res.data.id) {
+        message.success('更新成功');
+      }
+    };
 
-    createArticle();
+    articleId ? updateArticle() : createArticle();
   };
 
   /**
@@ -113,6 +119,9 @@ const Publish = () => {
     let successCount = 0;
     let errorCout = 0;
     let promises = imageList.map(file => {
+      if (file.url) {
+        return file;
+      }
       const formData = new FormData();
       formData.append('image', file);
       setUploading(true);

@@ -23,6 +23,20 @@ export function createArticleAPI(data, draft = false) {
 }
 
 /**
+ * 更新文章
+ * @param {object} data 表单数据
+ * @param {boolean} draft 文章状态 true-草稿，false-发布
+ * @returns 
+ */
+export function updateArticleAPI(data, draft = false) {
+  return request({
+    url: `/mp/articles/${data.id}?draft=${draft}`,
+    method: 'PUT',
+    data,
+  });
+}
+
+/**
  * 获取文章列表
  * @param {object} params 请求参数
  * @returns 
