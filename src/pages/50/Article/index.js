@@ -84,16 +84,35 @@ const Article = () => {
   const { channelList } = useChannel();
   const [articleList, setArticleList] = useState([]);
   const [articleCount, setArticleCount] = useState(0);
+  const [reqData, setReqDate] = useState({
+    status: '', // 文章状态
+    channel_id: '', // 频道
+    begin_pubdate: '', // 起始时间
+    end_pubdate: '', // 截止时间
+    page: 1, // 当前页码
+    per_page: 5, // 当前页条数
+  });
+
+  // 提交表单
+  const onSubmit = ({ status, channel_id, date }) => {
+    setReqDate({
+      ...reqData,
+      status, // 文章状态
+      channel_id, // 频道
+      begin_pubdate: date[0].format('YYYY-MM-DD'), // 起始时间
+      end_pubdate: date[1].format('YYYY-MM-DD'), // 截止时间
+    });
+  };
 
   useEffect(() => {
     async function getList() {
-      const res = await getArticleListAPI();
+      const res = await getArticleListAPI(reqData);
       setArticleList(res.data.results);
       setArticleCount(res.data.total_count);
     }
 
     getList();
-  }, []);
+  }, [reqData]);
 
   return (
     <div>
@@ -106,7 +125,7 @@ const Article = () => {
         }
         style={{ marginBottom: 20 }}
       >
-        <Form initialValues={{ status: '' }}>
+        <Form initialValues={{ status: '' }} onFinish={onSubmit}>
           <Form.Item label="状态" name="status">
             <Radio.Group>
               <Radio value={''}>全部</Radio>
