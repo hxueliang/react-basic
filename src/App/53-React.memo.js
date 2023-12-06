@@ -5,15 +5,17 @@
  * React组件的默认渲染机制：只要父组件重新渲染，子组件就会重新渲染
  */
 
-import { useState } from "react";
+import { memo, useState } from "react";
 
-function Son() {
-  console.log('Son组件渲染');
+const MemoSon = memo(
+  function Son() {
+    console.log('Son组件渲染');
 
-  return <div>
-    this is son
-  </div>;
-}
+    return <div>
+      this is son
+    </div>;
+  }
+);
 
 function App() {
   console.log('App组件重新渲染');
@@ -25,7 +27,7 @@ function App() {
       this is app
       <br />
       <button onClick={() => setCount(count + 1)}>+ {count}</button>
-      <Son />
+      <MemoSon />
     </div>
   );
 }
