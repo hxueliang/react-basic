@@ -19,7 +19,7 @@ import NavBar from '../components/30/NavBar';
 import Menu from '../components/30/Menu';
 import Cart from '../components/30/Cart';
 import FoodsCategory from '../components/30/FoodsCategory';
-import { fetchFoodsList } from '@s/modules/takeaway';
+import { fetchFoodsList } from '@/store/modules/30-takeaway';
 
 import '@a/style/30-app.scss';
 

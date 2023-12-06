@@ -8,7 +8,7 @@ import {
   CalculatorOutline,
 } from 'antd-mobile-icons';
 
-import { fetchBillList } from "@s/modules/billStore";
+import { fetchBillList } from "@/store/modules/40-billStore";
 import './index.scss';
 
 const tabs = [

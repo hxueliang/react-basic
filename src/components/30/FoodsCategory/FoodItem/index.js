@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { setCartList } from '@s/modules/takeaway';
+import { setCartList } from '@/store/modules/30-takeaway';
 import './index.scss';
 
 const Foods = ({

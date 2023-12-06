@@ -3,8 +3,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-import { decrement, increasement, toNum } from "@s/modules/counterStore";
-import { fetchChannelList } from "@s/modules/channelStore";
+import { decrement, increasement, toNum } from "@/store/modules/24-counterStore";
+import { fetchChannelList } from "@/store/modules/26-channelStore";
 
 function App() {
   const { count } = useSelector(state => state.counter);

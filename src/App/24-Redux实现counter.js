@@ -1,7 +1,7 @@
 // 24-Redux实现counter
 
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increasement } from "@s/modules/counterStore";
+import { decrement, increasement } from "@/store/modules/24-counterStore";
 
 function App() {
   const { count } = useSelector(state => state.counter);
