@@ -1,6 +1,6 @@
 // 52-useMemo
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const fib = n => {
   console.log('fib函数执行了');
@@ -14,7 +14,9 @@ function App() {
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
 
-  const result1 = fib(count1);
+  const result1 = useMemo(() => {
+    return fib(count1);
+  }, [count1]);
 
   console.log('组件渲染了');
   return (
