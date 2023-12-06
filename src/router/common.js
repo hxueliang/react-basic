@@ -1,4 +1,4 @@
-import App from '@/App/50-JIKE案例';
+import App from '@/App/51-useReducer';
 
 const router0 = [
   {
