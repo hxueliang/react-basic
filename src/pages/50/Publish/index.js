@@ -10,6 +10,7 @@ import {
   message,
   Radio,
   Upload,
+  Modal,
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -28,12 +29,28 @@ const Publish = () => {
   const [imageList, setImageList] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [imageType, setImageType] = useState(0);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
 
   const { channelList } = useChannel();
   const [searchParams] = useSearchParams();
   const [articleForm] = Form.useForm();
 
   const articleId = searchParams.get('id');
+
+  /**
+   * 预览图片
+   * @param {file} file 文件
+   */
+  const onPreviewUpload = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await fileToBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+    setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
+  };
 
   // 提交表单
   const onSubmit = async ({ title, content, channel_id }) => {
@@ -248,12 +265,25 @@ const Publish = () => {
                 fileList={imageList}
                 beforeUpload={beforeUpload}
                 onRemove={onRemoveUpload}
+                onPreview={onPreviewUpload}
               >
                 <div style={{ marginTop: 8 }}>
                   <PlusOutlined />
                 </div>
               </Upload>
             }
+            <Modal
+              open={previewOpen}
+              title={previewTitle}
+              footer={null}
+              onCancel={() => setPreviewOpen(false)}
+            >
+              <img
+                alt={previewTitle}
+                style={{ width: '100%' }}
+                src={previewImage}
+              />
+            </Modal>
           </Form.Item>
           <Form.Item
             label="内容"
