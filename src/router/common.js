@@ -1,4 +1,4 @@
-import App from '@/App/52-useMemo';
+import App from '@/App/53-React.memo';
 
 const router0 = [
   {
