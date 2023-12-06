@@ -1,11 +1,13 @@
 // 50-JIKE案例
-import { AuthRoute } from '@/components/50/AuthRoute';
-import Home from '@/pages/50/Home';
-import Article from '@/pages/50/Article';
-import Publish from '@/pages/50/Publish';
+import { Suspense, lazy } from 'react';
 
-import Layout from '../pages/50/Layout';
-import Login from '../pages/50/Login';
+import { AuthRoute } from '@/components/50/AuthRoute';
+
+const Home = lazy(() => import('@/pages/50/Home'));
+const Article = lazy(() => import('@/pages/50/Article'));
+const Publish = lazy(() => import('@/pages/50/Publish'));
+const Layout = lazy(() => import('../pages/50/Layout'));
+const Login = lazy(() => import('../pages/50/Login'));
 
 const router50 = [
   {
@@ -16,21 +18,21 @@ const router50 = [
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Suspense fallback="加载中"><Home /></Suspense>,
       },
       {
         path: 'article',
-        element: <Article />,
+        element: <Suspense fallback="加载中"><Article /></Suspense>,
       },
       {
         path: 'publish',
-        element: <Publish />,
+        element: <Suspense fallback="加载中"><Publish /></Suspense>,
       },
     ]
   },
   {
     path: '/50/login',
-    element: <Login />
+    element: <Suspense fallback="加载中"><Login /></Suspense>
   },
 ];
 
