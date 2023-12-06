@@ -18,6 +18,7 @@ import 'react-quill/dist/quill.snow.css';
 
 import { createArticleAPI, getArticleAPI, updateArticleAPI } from '@/apis/50/article';
 import { useChannel } from '@/hooks/50/useChannel';
+import { fileToBase64 } from '@/utils';
 
 import './index.scss';
 
@@ -78,6 +79,14 @@ const Publish = () => {
    * @param {file} imagefile 图片文件
    */
   const beforeUpload = imagefile => {
+
+    // 用于回显
+    const base64 = fileToBase64(imagefile);
+    base64.then(res => {
+      imagefile.url = res;
+      imagefile.hasBase64 = true;
+    });
+
     // 1图
     if (imageType === 1) {
       setImageList([imagefile]);
@@ -109,6 +118,7 @@ const Publish = () => {
   const onTypeChange = (e) => {
     const type = e.target.value;
     setImageType(type);
+    setImageList([]);
   };
 
   /**
@@ -119,7 +129,7 @@ const Publish = () => {
     let successCount = 0;
     let errorCout = 0;
     let promises = imageList.map(file => {
-      if (file.url) {
+      if (file.url && !file.hasBase64) {
         return file;
       }
       const formData = new FormData();
