@@ -1,4 +1,4 @@
-import App from '@/App/51-useReducer';
+import App from '@/App/52-useMemo';
 
 const router0 = [
   {
