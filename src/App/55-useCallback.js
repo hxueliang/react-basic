@@ -1,6 +1,6 @@
 // 55-useCallback
 
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 
 const Input = memo(function Input({ onChange }) {
   console.log('Input渲染了');
@@ -8,7 +8,7 @@ const Input = memo(function Input({ onChange }) {
 });
 
 function App() {
-  const changeHander = value => console.log(value);
+  const changeHander = useCallback(value => console.log(value), []);
   const [count, setCount] = useState(0);
 
   return (
