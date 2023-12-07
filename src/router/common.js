@@ -1,4 +1,4 @@
-import App from '@/App/53-React.memo';
+import App from '@/App/54-React.memo-props的比较机制';
 
 const router0 = [
   {
