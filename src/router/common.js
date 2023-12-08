@@ -1,4 +1,4 @@
-import App from '@/App/62-zustand异步支持';
+import App from '@/App/63-zustand切片模式';
 
 const router0 = [
   {
