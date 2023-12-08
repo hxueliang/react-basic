@@ -1,4 +1,4 @@
-import App from '@/App/57-useImperativeHandle';
+import App from '@/App/58-classAPI';
 
 const router0 = [
   {
