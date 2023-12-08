@@ -1,4 +1,4 @@
-import App from '@/App/60-类组件的组件通信';
+import App from '@/App/61-zustand快速上手';
 
 const router0 = [
   {
