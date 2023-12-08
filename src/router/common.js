@@ -1,4 +1,4 @@
-import App from '@/App/59-类组件的生命周期函数';
+import App from '@/App/60-类组件的组件通信';
 
 const router0 = [
   {
