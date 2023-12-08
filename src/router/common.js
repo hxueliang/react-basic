@@ -1,4 +1,4 @@
-import App from '@/App/58-classAPI';
+import App from '@/App/59-类组件的生命周期函数';
 
 const router0 = [
   {
