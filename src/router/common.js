@@ -1,4 +1,4 @@
-import App from '@/App/61-zustand快速上手';
+import App from '@/App/62-zustand异步支持';
 
 const router0 = [
   {
